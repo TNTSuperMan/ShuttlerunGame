@@ -1,0 +1,247 @@
+[gd_scene load_steps=22 format=3 uid="uid://xmsdxune1au"]
+
+[ext_resource type="BoxMesh" uid="uid://c4aordby4481u" path="res://scene/shuttlerun/mesh/floor.tres" id="1_03isr"]
+[ext_resource type="Script" path="res://scene/shuttlerun/stage.gd" id="1_jay75"]
+[ext_resource type="Script" path="res://scene/shuttlerun/player.gd" id="1_qu7xk"]
+[ext_resource type="Theme" uid="uid://h1cu6xap0ain" path="res://font/theme.tres" id="2_5l1r3"]
+[ext_resource type="AudioStream" uid="uid://chxblse8psgxu" path="res://scene/shuttlerun/sound/1.wav" id="2_yvqvq"]
+[ext_resource type="AudioStream" uid="uid://b6h2s3nbrx4xr" path="res://scene/shuttlerun/sound/2.wav" id="3_6336p"]
+[ext_resource type="BoxMesh" uid="uid://coty70m5gpfcc" path="res://scene/shuttlerun/mesh/wall.tres" id="3_evgue"]
+[ext_resource type="Shape3D" uid="uid://bjar3gggwi1ha" path="res://scene/shuttlerun/player.tres" id="4_5n2ar"]
+[ext_resource type="AudioStream" uid="uid://deqis46dicx6q" path="res://scene/shuttlerun/sound/3.wav" id="4_651kg"]
+[ext_resource type="Shape3D" uid="uid://dnfoydghff7ri" path="res://scene/shuttlerun/shape/wall1.tres" id="5_k4ylr"]
+[ext_resource type="AudioStream" uid="uid://d18nih27s0ulv" path="res://scene/shuttlerun/sound/4.wav" id="5_ycedf"]
+[ext_resource type="Shape3D" uid="uid://dvg1540hsc4k5" path="res://scene/shuttlerun/shape/wall2.tres" id="6_gxlah"]
+[ext_resource type="AudioStream" uid="uid://bgklo7cdmxtsl" path="res://scene/shuttlerun/sound/5.wav" id="6_wyq86"]
+[ext_resource type="AudioStream" uid="uid://dnaupjpdcncqy" path="res://scene/shuttlerun/sound/6.wav" id="7_bdnki"]
+[ext_resource type="AudioStream" uid="uid://bf27frhqbr74f" path="res://scene/shuttlerun/sound/7.wav" id="8_mff4e"]
+[ext_resource type="AudioStream" uid="uid://cnakmx37d7lys" path="res://scene/shuttlerun/sound/8.wav" id="9_taecm"]
+[ext_resource type="AudioStream" uid="uid://c2dcserky0rtm" path="res://scene/shuttlerun/sound/n.wav" id="10_s6et8"]
+[ext_resource type="AudioStream" uid="uid://du31qs5yhchj4" path="res://scene/shuttlerun/sound/x.wav" id="11_10lny"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pj0lh"]
+sky_top_color = Color(1, 0.752, 0.52, 1)
+sky_horizon_color = Color(0.8, 0.73025, 0.66325, 1)
+ground_horizon_color = Color(0.8, 0.73025, 0.66325, 1)
+
+[sub_resource type="Sky" id="Sky_cp11v"]
+sky_material = SubResource("ProceduralSkyMaterial_pj0lh")
+
+[sub_resource type="Environment" id="Environment_yv50g"]
+background_mode = 2
+sky = SubResource("Sky_cp11v")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Shuttlerun" type="Node3D"]
+script = ExtResource("1_jay75")
+
+[node name="BGM" type="Node" parent="."]
+
+[node name="1" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("2_yvqvq")
+
+[node name="2" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("3_6336p")
+
+[node name="3" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("4_651kg")
+
+[node name="4" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("5_ycedf")
+
+[node name="5" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("6_wyq86")
+
+[node name="6" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("7_bdnki")
+
+[node name="7" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("8_mff4e")
+
+[node name="8" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("9_taecm")
+
+[node name="n" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("10_s6et8")
+
+[node name="x" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource("11_10lny")
+
+[node name="Stamina" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 40.0
+color = Color(1, 1, 1, 0.784314)
+
+[node name="StaminaLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("2_5l1r3")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 30
+text = "スタミナゲージ"
+
+[node name="Level" type="Label" parent="."]
+offset_left = 44.0
+offset_top = 43.0
+offset_right = 110.0
+offset_bottom = 72.0
+theme = ExtResource("2_5l1r3")
+theme_override_constants/outline_size = 2
+text = "レベル: "
+
+[node name="isComplete" type="ColorRect" parent="."]
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 80.0
+
+[node name="DeathRed" type="ColorRect" parent="."]
+offset_right = 1153.0
+offset_bottom = 648.0
+color = Color(1, 0, 0, 0)
+
+[node name="GiveUpDialog" type="AcceptDialog" parent="."]
+title = "Shuttlerun"
+size = Vector2i(233, 100)
+dialog_text = "あなたは限界を超え、倒れました。"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yv50g")
+
+[node name="floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(35, 0, 0, 0, 0.05, 0, 0, 0, 25, 0, 0, 0)
+mesh = ExtResource("1_03isr")
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="wall1" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 12.5)
+
+[node name="collision" type="CollisionShape3D" parent="Walls/wall1"]
+shape = ExtResource("5_k4ylr")
+
+[node name="wall" type="MeshInstance3D" parent="Walls/wall1"]
+transform = Transform3D(35, 0, 0, 0, -2.18557e-09, -12, 0, 0.05, -5.24537e-07, 0, 0, 0)
+mesh = ExtResource("3_evgue")
+skeleton = NodePath("../../..")
+
+[node name="wall2" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -12.5)
+
+[node name="collision" type="CollisionShape3D" parent="Walls/wall2"]
+shape = ExtResource("5_k4ylr")
+
+[node name="wall" type="MeshInstance3D" parent="Walls/wall2"]
+transform = Transform3D(35, 0, 0, 0, -2.18557e-09, -12, 0, 0.05, -5.24537e-07, 0, 0, 0)
+mesh = ExtResource("3_evgue")
+skeleton = NodePath("../../..")
+
+[node name="wall3" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 6, 0)
+
+[node name="collision" type="CollisionShape3D" parent="Walls/wall3"]
+shape = ExtResource("6_gxlah")
+
+[node name="wall" type="MeshInstance3D" parent="Walls/wall3"]
+transform = Transform3D(-5.24537e-07, -0.05, 0, 12, -2.18557e-09, 0, 0, 0, 25, 0, 0, 0)
+mesh = ExtResource("3_evgue")
+skeleton = NodePath("../../..")
+
+[node name="wall4" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4992, 6, -0.0550575)
+
+[node name="collision" type="CollisionShape3D" parent="Walls/wall4"]
+shape = ExtResource("6_gxlah")
+
+[node name="wall" type="MeshInstance3D" parent="Walls/wall4"]
+transform = Transform3D(-5.24537e-07, -0.05, 0, 12, -2.18557e-09, 0, 0, 0, 25, 0, 0, 0)
+mesh = ExtResource("3_evgue")
+skeleton = NodePath("../../..")
+
+[node name="lines" type="Node3D" parent="."]
+
+[node name="line1" type="MeshInstance3D" parent="lines"]
+transform = Transform3D(35, 0, 0, 0, 0.07, 0, 0, 0, 0.2, 0, 0, 10)
+mesh = ExtResource("3_evgue")
+skeleton = NodePath("../..")
+
+[node name="line2" type="MeshInstance3D" parent="lines"]
+transform = Transform3D(35, 0, 0, 0, 0.07, 0, 0, 0, 0.2, 0, 0, -10)
+mesh = ExtResource("3_evgue")
+skeleton = NodePath("../..")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12, 0)
+light_energy = 15.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12, 6)
+light_energy = 15.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12, -6)
+light_energy = 20.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 6, 12, 0)
+light_energy = 15.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 6, 12, 6)
+light_energy = 15.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 6, 12, -6)
+light_energy = 15.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -6, 12, 0)
+light_energy = 15.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -6, 12, 6)
+light_energy = 15.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -6, 12, -6)
+light_energy = 15.0
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 11.369)
+script = ExtResource("1_qu7xk")
+
+[node name="camera" type="Camera3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0.155, 0)
+fov = 47.5351
+
+[node name="collision" type="CollisionShape3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.288237, 0)
+shape = ExtResource("4_5n2ar")
+
+[connection signal="canceled" from="GiveUpDialog" to="." method="_on_give_up_dialog_canceled"]
+[connection signal="confirmed" from="GiveUpDialog" to="." method="_on_give_up_dialog_confirmed"]
+[connection signal="chech_pos" from="player" to="." method="_on_player_chech_pos"]
+[connection signal="give_up" from="player" to="." method="_on_player_give_up"]
+[connection signal="stamina_changed" from="player" to="." method="_on_player_stamina_changed"]

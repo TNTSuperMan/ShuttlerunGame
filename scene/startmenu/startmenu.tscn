@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://l8ujyktve4ti"]
+
+[ext_resource type="Theme" uid="uid://h1cu6xap0ain" path="res://font/theme.tres" id="1_manl1"]
+[ext_resource type="Script" path="res://scene/startmenu/startmenu.gd" id="2_kcb2e"]
+[ext_resource type="AudioStream" uid="uid://p4pkaab85tc5" path="res://scene/startmenu/かなリア.wav" id="3_8ibdn"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_manl1")
+script = ExtResource("2_kcb2e")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1162.0
+offset_bottom = 656.0
+color = Color(0, 0.645588, 0.66836, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 35.0
+offset_right = 780.0
+offset_bottom = 108.0
+theme_override_font_sizes/font_size = 50
+text = "シャトルラン"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 129.0
+offset_right = 757.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 50
+text = "最初から始める"
+
+[node name="continue" type="Button" parent="."]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 225.0
+offset_right = 757.0
+offset_bottom = 306.0
+theme_override_font_sizes/font_size = 50
+text = "続きから始める"
+
+[node name="credit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 321.0
+offset_right = 757.0
+offset_bottom = 402.0
+theme_override_font_sizes/font_size = 50
+text = "クレジット表記"
+
+[node name="savedestdlg" type="ConfirmationDialog" parent="."]
+title = "シャトルラン"
+theme = ExtResource("1_manl1")
+ok_button_text = "はい"
+dialog_text = "セーブデータを削除して最初から始めますか？"
+cancel_button_text = "いいえ"
+
+[node name="bgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8ibdn")
+volume_db = -13.0
+autoplay = true
+
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="credit" to="." method="_on_credit_pressed"]
+[connection signal="confirmed" from="savedestdlg" to="." method="_on_savedestdlg_confirmed"]

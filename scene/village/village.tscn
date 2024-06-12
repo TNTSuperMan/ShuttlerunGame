@@ -1,0 +1,137 @@
+[gd_scene load_steps=15 format=3 uid="uid://dc2ya3o6l8e5m"]
+
+[ext_resource type="Script" path="res://scene/village/player.gd" id="1_5l87m"]
+[ext_resource type="Script" path="res://scene/village/village.gd" id="1_eumwu"]
+[ext_resource type="Texture2D" uid="uid://bov1a0x85t1et" path="res://scene/village/stage.png" id="1_rlifw"]
+[ext_resource type="Texture2D" uid="uid://da8jnfbsapk7v" path="res://scene/village/player/forward.png" id="2_nnjs4"]
+[ext_resource type="Shape2D" uid="uid://d1uxpliwhckmq" path="res://scene/village/shape/player.tres" id="3_6lgtb"]
+[ext_resource type="Shape2D" uid="uid://yyu3xmcx1ioe" path="res://scene/village/shape/wall.tres" id="4_q0wvk"]
+[ext_resource type="Shape2D" uid="uid://dcq6vd8mnev71" path="res://scene/village/shape/stage.tres" id="5_fmw4r"]
+[ext_resource type="Texture2D" uid="uid://daiakpaiy4sbc" path="res://scene/village/gym.png" id="6_jqhvv"]
+[ext_resource type="AudioStream" uid="uid://b4o4uccg2gkxe" path="res://scene/village/maou_bgm_8bit01.mp3" id="7_ubvqt"]
+[ext_resource type="Texture2D" uid="uid://pq7f412q3114" path="res://scene/village/help.png" id="9_2cyte"]
+[ext_resource type="Shape2D" uid="uid://d33xuwahgi8vm" path="res://scene/village/shape/help.tres" id="10_j6ga1"]
+[ext_resource type="Script" path="res://scene/village/desc.gd" id="11_4dmva"]
+[ext_resource type="Shape2D" uid="uid://cd5tl1rna6nvo" path="res://scene/village/shape/gym_in.tres" id="12_sdhgq"]
+[ext_resource type="Theme" uid="uid://h1cu6xap0ain" path="res://font/theme.tres" id="13_e3f0l"]
+
+[node name="Village" type="Node2D"]
+script = ExtResource("1_eumwu")
+
+[node name="bgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ubvqt")
+volume_db = -10.0
+autoplay = true
+
+[node name="stage" type="Sprite2D" parent="."]
+position = Vector2(576, 325)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_rlifw")
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(117, 75)
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_5l87m")
+
+[node name="collision" type="CollisionShape2D" parent="player"]
+position = Vector2(-2, 0)
+shape = ExtResource("3_6lgtb")
+
+[node name="img" type="Sprite2D" parent="player"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_nnjs4")
+
+[node name="Help" type="Area2D" parent="."]
+position = Vector2(669, 77)
+
+[node name="Sprite2D" type="Sprite2D" parent="Help"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_2cyte")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Help"]
+shape = ExtResource("10_j6ga1")
+
+[node name="edge" type="Node2D" parent="."]
+
+[node name="up" type="StaticBody2D" parent="edge"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="edge/up"]
+position = Vector2(577, 0)
+shape = ExtResource("4_q0wvk")
+
+[node name="down" type="StaticBody2D" parent="edge"]
+position = Vector2(0, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="edge/down"]
+position = Vector2(571, 151)
+shape = ExtResource("4_q0wvk")
+
+[node name="left" type="StaticBody2D" parent="edge"]
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="edge/left"]
+position = Vector2(577, 0)
+shape = ExtResource("4_q0wvk")
+
+[node name="right" type="StaticBody2D" parent="edge"]
+position = Vector2(100, 0)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="edge/right"]
+position = Vector2(539, -1055)
+shape = ExtResource("4_q0wvk")
+
+[node name="gym" type="StaticBody2D" parent="."]
+position = Vector2(948, 242)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gym"]
+position = Vector2(-9.125, -5.5)
+shape = ExtResource("5_fmw4r")
+
+[node name="Sprite2D" type="Sprite2D" parent="gym"]
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("6_jqhvv")
+
+[node name="gym_in" type="Area2D" parent="."]
+position = Vector2(933, 471)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gym_in"]
+position = Vector2(-16, 7)
+shape = ExtResource("12_sdhgq")
+
+[node name="descback" type="ColorRect" parent="."]
+visible = false
+offset_left = 331.0
+offset_top = 116.0
+offset_right = 727.0
+offset_bottom = 213.0
+color = Color(1, 1, 1, 0.705882)
+
+[node name="desc" type="Label" parent="."]
+visible = false
+offset_left = 335.0
+offset_top = 114.0
+offset_right = 734.0
+offset_bottom = 216.0
+theme = ExtResource("13_e3f0l")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "この？アイコンが操作方法を教えてやろう。
+Wキーまたは上矢印キーで前に加速、
+Sキーまたは下矢印キーで後ろに加速だ。"
+autowrap_mode = 2
+script = ExtResource("11_4dmva")
+
+[node name="gymdlg" type="ConfirmationDialog" parent="."]
+title = "シャトルラン"
+ok_button_text = "はい"
+dialog_text = "シャトルランを始めますか？"
+cancel_button_text = "いいえ"
+
+[connection signal="body_entered" from="Help" to="desc" method="_on_help_body_entered"]
+[connection signal="body_exited" from="Help" to="desc" method="_on_help_body_exited"]
+[connection signal="body_entered" from="gym_in" to="." method="_on_gym_in_body_entered"]
+[connection signal="canceled" from="gymdlg" to="." method="_on_gymdlg_canceled"]
+[connection signal="confirmed" from="gymdlg" to="." method="_on_gymdlg_confirmed"]
